@@ -38,6 +38,7 @@ const backendSorting: boolean = true;
     </div>
   </main>
   <main v-else>
+    <hr>
     <b-field grouped position="is-right">
       <div class="">
         <b-button type="is-primary" tag="router-link" to="/create" >

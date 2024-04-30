@@ -13,7 +13,6 @@ export const useJokes = () => {
   let orderSorting = '';
 
   const handlePageChange = (page: number) => {
-    console.log('page', page);
     jokesPagination(page, infoPagination.value.limit, fieldSorting, orderSorting);
   }
 
