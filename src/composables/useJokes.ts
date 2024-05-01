@@ -5,37 +5,34 @@ import { storeToRefs } from "pinia";
 export const useJokes = () => {
   const jokeStore = useJokeStore();
 
-  const { jokeArr, infoPagination, joke } = storeToRefs(jokeStore);
+  const { jokeArr, infoPagination, joke, fieldSorting, orderSorting } = storeToRefs(jokeStore);
 
-  const { fetchJokes, jokesPagination, ratingUpdate, createJoke  } = jokeStore;
-
-  let fieldSorting = '';
-  let orderSorting = '';
+  const { fetchJokes, jokesPagination, ratingUpdate, createJoke } = jokeStore;
 
   const handlePageChange = (page: number) => {
-    jokesPagination(page, infoPagination.value.limit, fieldSorting, orderSorting);
+    jokesPagination(page, infoPagination.value.limit, fieldSorting.value, orderSorting.value);
   }
 
   const handlepageSizeChange = (event: Event) => {
     const limit = (event.target as HTMLInputElement)?.value;
-    jokesPagination(infoPagination.value.page, +limit, fieldSorting, orderSorting);
+    jokesPagination(infoPagination.value.page, +limit, fieldSorting.value, orderSorting.value);
   }
 
   const ratingChange = (newValue: number, row: Joke) => {
     ratingUpdate(row.id, newValue)
-    if(joke.value) jokesPagination(infoPagination.value.page, infoPagination.value.limit, fieldSorting, orderSorting);
+    if(joke.value) jokesPagination(infoPagination.value.page, infoPagination.value.limit, fieldSorting.value, orderSorting.value);
   }
 
   const sortedExecuted = (field: string, order: string) => {
     jokesPagination(infoPagination.value.page, infoPagination.value.limit, field, order);
-    fieldSorting = field;
-    orderSorting = order;
+    fieldSorting.value = field;
+    orderSorting.value = order;
    }
 
    const resetSorted = () => {
     jokesPagination(infoPagination.value.page, infoPagination.value.limit);
-    fieldSorting = '';
-    orderSorting = '';
+    fieldSorting.value = '';
+    orderSorting.value = '';
    }
 
   return {
